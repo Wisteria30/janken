@@ -1,8 +1,6 @@
 # Janken
 
-`usecaseapi` の Manifest から、じゃんけん / あっち向いてほいの CLI と HTTP API を作るサンプルです。
-
-UseCaseAPI を使って仕様書からスキーマ定義を作り、Codex で実装完了まで進める流れを体験するための example です。
+UseCaseAPI で仕様書から Manifest を作り、Codex でじゃんけん / あっち向いてほいの CLI と HTTP API を実装する流れを体験できます。
 
 ## 作り方
 
