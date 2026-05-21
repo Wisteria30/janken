@@ -1,0 +1,1182 @@
+openapi: 3.1.0
+info:
+  title: janken
+  version: 1.0.0
+  description: UseCaseAPI manifest for same-process application usecases.
+  license:
+    name: MIT
+    identifier: MIT
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+- url: http://localhost
+  description: Optional UseCaseAPI HTTP adapter base URL. Native UseCaseAPI calls are same-process and
+    do not require this transport.
+security: []
+tags:
+- name: acchi-muite-hoi
+- name: game-step
+- name: janken
+- name: session
+paths:
+  /_usecases/packages.acchi_muite_hoi.play_acchi_muite_hoi_turn/v1/call:
+    post:
+      operationId: packages_acchi_muite_hoi_play_acchi_muite_hoi_turn_v1_call
+      tags:
+      - acchi-muite-hoi
+      - game-step
+      summary: あっち向いてほいセッションの現在状態に応じて、じゃんけんまたは方向勝負を 1 ステップ進める。
+      description: あっち向いてほいセッションの現在状態に応じて、じゃんけんまたは方向勝負を 1 ステップ進める。
+      deprecated: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseInput'
+      responses:
+        '200':
+          description: PlayAcchiMuiteHoiTurnUseCaseOutput result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseOutput'
+        default:
+          $ref: '#/components/responses/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1DomainError'
+      x-usecaseapi:
+        kind: usecase
+        key: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn@v1
+        name: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn
+        version: 1
+        action: call
+        lifecycle:
+          stability: stable
+          deprecated: false
+        protocol: usecaseapi.inprocess.async_call.v1
+        semantics:
+          kind: command
+          sideEffects: true
+          idempotent: false
+          cacheable: false
+        context:
+          source: runtime
+          required: false
+        input:
+          pythonName: PlayAcchiMuiteHoiTurnUseCaseInput
+          schema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseInput'
+        output:
+          pythonName: PlayAcchiMuiteHoiTurnUseCaseOutput
+          schema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseOutput'
+        errors:
+          raises:
+          - AcchiMuiteHoiSessionError
+          known:
+          - InvalidAcchiMuiteHoiHandError
+          - InvalidAcchiMuiteHoiDirectionError
+          - AcchiMuiteHoiSessionNotFoundError
+          - AcchiMuiteHoiSessionAlreadyFinishedError
+          - AcchiMuiteHoiInputStateMismatchError
+        bindings:
+          python:
+            signature: 'async __call__(input: PlayAcchiMuiteHoiTurnUseCaseInput) -> PlayAcchiMuiteHoiTurnUseCaseOutput'
+            contract:
+              module: packages.acchi_muite_hoi.usecases.play_acchi_muite_hoi_turn.v1.play_acchi_muite_hoi_turn_contract
+              protocolClass: PlayAcchiMuiteHoiTurn
+              ref: PLAY_ACCHI_MUITE_HOI_TURN_USECASE
+              file: src/packages/acchi_muite_hoi/usecases/play_acchi_muite_hoi_turn/v1/play_acchi_muite_hoi_turn_contract.py
+            implementation:
+              class: PlayAcchiMuiteHoiTurnUseCase
+              file: src/packages/acchi_muite_hoi/usecases/play_acchi_muite_hoi_turn/v1/play_acchi_muite_hoi_turn_usecase.py
+  /_usecases/packages.acchi_muite_hoi.start_acchi_muite_hoi_session/v1/call:
+    post:
+      operationId: packages_acchi_muite_hoi_start_acchi_muite_hoi_session_v1_call
+      tags:
+      - acchi-muite-hoi
+      - session
+      summary: あっち向いてほいの新しいメモリ上セッションを開始する。
+      description: あっち向いてほいの新しいメモリ上セッションを開始する。
+      deprecated: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseInput'
+      responses:
+        '200':
+          description: StartAcchiMuiteHoiSessionUseCaseOutput result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseOutput'
+      x-usecaseapi:
+        kind: usecase
+        key: packages.acchi_muite_hoi.start_acchi_muite_hoi_session@v1
+        name: packages.acchi_muite_hoi.start_acchi_muite_hoi_session
+        version: 1
+        action: call
+        lifecycle:
+          stability: stable
+          deprecated: false
+        protocol: usecaseapi.inprocess.async_call.v1
+        semantics:
+          kind: command
+          sideEffects: true
+          idempotent: false
+          cacheable: false
+        context:
+          source: runtime
+          required: false
+        input:
+          pythonName: StartAcchiMuiteHoiSessionUseCaseInput
+          schema: '#/components/schemas/PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseInput'
+        output:
+          pythonName: StartAcchiMuiteHoiSessionUseCaseOutput
+          schema: '#/components/schemas/PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseOutput'
+        errors:
+          raises: []
+          known: []
+        bindings:
+          python:
+            signature: 'async __call__(input: StartAcchiMuiteHoiSessionUseCaseInput) -> StartAcchiMuiteHoiSessionUseCaseOutput'
+            contract:
+              module: packages.acchi_muite_hoi.usecases.start_acchi_muite_hoi_session.v1.start_acchi_muite_hoi_session_contract
+              protocolClass: StartAcchiMuiteHoiSession
+              ref: START_ACCHI_MUITE_HOI_SESSION_USECASE
+              file: src/packages/acchi_muite_hoi/usecases/start_acchi_muite_hoi_session/v1/start_acchi_muite_hoi_session_contract.py
+            implementation:
+              class: StartAcchiMuiteHoiSessionUseCase
+              file: src/packages/acchi_muite_hoi/usecases/start_acchi_muite_hoi_session/v1/start_acchi_muite_hoi_session_usecase.py
+  /_usecases/packages.janken.play_janken_hand/v1/call:
+    post:
+      operationId: packages_janken_play_janken_hand_v1_call
+      tags:
+      - janken
+      - game-step
+      summary: 既存のじゃんけんセッションにユーザーの手を適用し、システムの手と勝敗を返す。
+      description: 既存のじゃんけんセッションにユーザーの手を適用し、システムの手と勝敗を返す。
+      deprecated: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseInput'
+      responses:
+        '200':
+          description: PlayJankenHandUseCaseOutput result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseOutput'
+        default:
+          $ref: '#/components/responses/PackagesJankenPlayJankenHandV1DomainError'
+      x-usecaseapi:
+        kind: usecase
+        key: packages.janken.play_janken_hand@v1
+        name: packages.janken.play_janken_hand
+        version: 1
+        action: call
+        lifecycle:
+          stability: stable
+          deprecated: false
+        protocol: usecaseapi.inprocess.async_call.v1
+        semantics:
+          kind: command
+          sideEffects: true
+          idempotent: false
+          cacheable: false
+        context:
+          source: runtime
+          required: false
+        input:
+          pythonName: PlayJankenHandUseCaseInput
+          schema: '#/components/schemas/PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseInput'
+        output:
+          pythonName: PlayJankenHandUseCaseOutput
+          schema: '#/components/schemas/PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseOutput'
+        errors:
+          raises:
+          - JankenSessionError
+          known:
+          - InvalidJankenHandError
+          - JankenSessionNotFoundError
+          - JankenSessionAlreadyFinishedError
+        bindings:
+          python:
+            signature: 'async __call__(input: PlayJankenHandUseCaseInput) -> PlayJankenHandUseCaseOutput'
+            contract:
+              module: packages.janken.usecases.play_janken_hand.v1.play_janken_hand_contract
+              protocolClass: PlayJankenHand
+              ref: PLAY_JANKEN_HAND_USECASE
+              file: src/packages/janken/usecases/play_janken_hand/v1/play_janken_hand_contract.py
+            implementation:
+              class: PlayJankenHandUseCase
+              file: src/packages/janken/usecases/play_janken_hand/v1/play_janken_hand_usecase.py
+  /_usecases/packages.janken.start_janken_session/v1/call:
+    post:
+      operationId: packages_janken_start_janken_session_v1_call
+      tags:
+      - janken
+      - session
+      summary: じゃんけん単体の新しいメモリ上セッションを開始する。
+      description: じゃんけん単体の新しいメモリ上セッションを開始する。
+      deprecated: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseInput'
+      responses:
+        '200':
+          description: StartJankenSessionUseCaseOutput result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseOutput'
+      x-usecaseapi:
+        kind: usecase
+        key: packages.janken.start_janken_session@v1
+        name: packages.janken.start_janken_session
+        version: 1
+        action: call
+        lifecycle:
+          stability: stable
+          deprecated: false
+        protocol: usecaseapi.inprocess.async_call.v1
+        semantics:
+          kind: command
+          sideEffects: true
+          idempotent: false
+          cacheable: false
+        context:
+          source: runtime
+          required: false
+        input:
+          pythonName: StartJankenSessionUseCaseInput
+          schema: '#/components/schemas/PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseInput'
+        output:
+          pythonName: StartJankenSessionUseCaseOutput
+          schema: '#/components/schemas/PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseOutput'
+        errors:
+          raises: []
+          known: []
+        bindings:
+          python:
+            signature: 'async __call__(input: StartJankenSessionUseCaseInput) -> StartJankenSessionUseCaseOutput'
+            contract:
+              module: packages.janken.usecases.start_janken_session.v1.start_janken_session_contract
+              protocolClass: StartJankenSession
+              ref: START_JANKEN_SESSION_USECASE
+              file: src/packages/janken/usecases/start_janken_session/v1/start_janken_session_contract.py
+            implementation:
+              class: StartJankenSessionUseCase
+              file: src/packages/janken/usecases/start_janken_session/v1/start_janken_session_usecase.py
+components:
+  schemas:
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseInput:
+      title: PlayAcchiMuiteHoiTurnUseCaseInput
+      description: あっち向いてほいセッションを現在状態に応じて 1 ステップ進めるための入力を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - user_hand
+      - user_direction
+      properties:
+        session_id:
+          type: string
+          description: 対象のあっち向いてほいセッションを識別する値。
+        user_hand:
+          anyOf:
+          - enum:
+            - グー
+            - チョキ
+            - パー
+          - type: 'null'
+          description: じゃんけんの手入力待ち状態で指定するユーザーの手。
+        user_direction:
+          anyOf:
+          - enum:
+            - 上
+            - 下
+            - 右
+            - 左
+          - type: 'null'
+          description: 方向入力待ち状態で指定するユーザーの方向。
+      x-usecaseapi:
+        kind: input
+        canonicalName: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.v1.PlayAcchiMuiteHoiTurnUseCaseInput
+        bindings:
+          python:
+            class: PlayAcchiMuiteHoiTurnUseCaseInput
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1PlayAcchiMuiteHoiTurnUseCaseOutput:
+      title: PlayAcchiMuiteHoiTurnUseCaseOutput
+      description: あっち向いてほい 1 ステップ分の判定結果と次状態を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - status
+      - janken_result
+      - initiative
+      - user_hand
+      - system_hand
+      - user_direction
+      - system_direction
+      - final_result
+      - message
+      properties:
+        session_id:
+          type: string
+          description: 対象のあっち向いてほいセッションを識別する値。
+        status:
+          enum:
+          - waiting_for_janken_hand
+          - waiting_for_look_direction
+          - finished
+          description: 次に必要な入力、または最終勝敗確定を示す状態。
+        janken_result:
+          anyOf:
+          - enum:
+            - ユーザーの勝ち
+            - ユーザーの負け
+            - あいこ
+          - type: 'null'
+          description: じゃんけんを実行したステップでの勝敗。
+        initiative:
+          anyOf:
+          - enum:
+            - user
+            - system
+          - type: 'null'
+          description: 方向勝負に進む場合の主導権の所在。
+        user_hand:
+          anyOf:
+          - enum:
+            - グー
+            - チョキ
+            - パー
+          - type: 'null'
+          description: じゃんけんを実行したステップで判定に使用されたユーザーの手。
+        system_hand:
+          anyOf:
+          - enum:
+            - グー
+            - チョキ
+            - パー
+          - type: 'null'
+          description: じゃんけんを実行したステップで判定に使用されたシステムの手。
+        user_direction:
+          anyOf:
+          - enum:
+            - 上
+            - 下
+            - 右
+            - 左
+          - type: 'null'
+          description: 方向勝負を実行したステップで判定に使用されたユーザーの方向。
+        system_direction:
+          anyOf:
+          - enum:
+            - 上
+            - 下
+            - 右
+            - 左
+          - type: 'null'
+          description: 方向勝負を実行したステップで判定に使用されたシステムの方向。
+        final_result:
+          anyOf:
+          - enum:
+            - ユーザーの勝ち
+            - ユーザーの負け
+          - type: 'null'
+          description: 最終勝敗が確定した場合の結果。
+        message:
+          type: string
+          description: CLI または HTTP で利用する利用者向けメッセージ。
+      x-usecaseapi:
+        kind: output
+        canonicalName: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.v1.PlayAcchiMuiteHoiTurnUseCaseOutput
+        bindings:
+          python:
+            class: PlayAcchiMuiteHoiTurnUseCaseOutput
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorPayload:
+      title: AcchiMuiteHoiSessionErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorEnvelope:
+      title: AcchiMuiteHoiSessionErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_error
+        error:
+          type: string
+          enum:
+          - AcchiMuiteHoiSessionError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: AcchiMuiteHoiSessionError
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorPayload:
+      title: InvalidAcchiMuiteHoiHandErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorEnvelope:
+      title: InvalidAcchiMuiteHoiHandErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.invalid_hand
+        error:
+          type: string
+          enum:
+          - InvalidAcchiMuiteHoiHandError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: InvalidAcchiMuiteHoiHandError
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorPayload:
+      title: InvalidAcchiMuiteHoiDirectionErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorEnvelope:
+      title: InvalidAcchiMuiteHoiDirectionErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.invalid_direction
+        error:
+          type: string
+          enum:
+          - InvalidAcchiMuiteHoiDirectionError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: InvalidAcchiMuiteHoiDirectionError
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorPayload:
+      title: AcchiMuiteHoiSessionNotFoundErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorEnvelope:
+      title: AcchiMuiteHoiSessionNotFoundErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_not_found
+        error:
+          type: string
+          enum:
+          - AcchiMuiteHoiSessionNotFoundError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: AcchiMuiteHoiSessionNotFoundError
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorPayload:
+      title: AcchiMuiteHoiSessionAlreadyFinishedErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorEnvelope:
+      title: AcchiMuiteHoiSessionAlreadyFinishedErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_already_finished
+        error:
+          type: string
+          enum:
+          - AcchiMuiteHoiSessionAlreadyFinishedError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: AcchiMuiteHoiSessionAlreadyFinishedError
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorPayload:
+      title: AcchiMuiteHoiInputStateMismatchErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorEnvelope:
+      title: AcchiMuiteHoiInputStateMismatchErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.input_state_mismatch
+        error:
+          type: string
+          enum:
+          - AcchiMuiteHoiInputStateMismatchError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: AcchiMuiteHoiInputStateMismatchError
+    PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseInput:
+      title: StartAcchiMuiteHoiSessionUseCaseInput
+      description: あっち向いてほいセッション開始に必要な入力を表す。
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+      x-usecaseapi:
+        kind: input
+        canonicalName: packages.acchi_muite_hoi.start_acchi_muite_hoi_session.v1.StartAcchiMuiteHoiSessionUseCaseInput
+        bindings:
+          python:
+            class: StartAcchiMuiteHoiSessionUseCaseInput
+    PackagesAcchiMuiteHoiStartAcchiMuiteHoiSessionV1StartAcchiMuiteHoiSessionUseCaseOutput:
+      title: StartAcchiMuiteHoiSessionUseCaseOutput
+      description: 開始されたあっち向いてほいセッションの識別子と初期状態を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - status
+      - message
+      properties:
+        session_id:
+          type: string
+          description: アプリケーション実行中のメモリ上でセッションを識別する値。
+        status:
+          enum:
+          - waiting_for_janken_hand
+          description: じゃんけんの手入力待ちであることを示す状態。
+        message:
+          type: string
+          description: CLI または HTTP で利用する利用者向けメッセージ。
+      x-usecaseapi:
+        kind: output
+        canonicalName: packages.acchi_muite_hoi.start_acchi_muite_hoi_session.v1.StartAcchiMuiteHoiSessionUseCaseOutput
+        bindings:
+          python:
+            class: StartAcchiMuiteHoiSessionUseCaseOutput
+    PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseInput:
+      title: PlayJankenHandUseCaseInput
+      description: じゃんけんセッションを 1 手進めるための入力を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - user_hand
+      properties:
+        session_id:
+          type: string
+          description: 対象のじゃんけんセッションを識別する値。
+        user_hand:
+          enum:
+          - グー
+          - チョキ
+          - パー
+          description: ユーザーが出すじゃんけんの手。
+      x-usecaseapi:
+        kind: input
+        canonicalName: packages.janken.play_janken_hand.v1.PlayJankenHandUseCaseInput
+        bindings:
+          python:
+            class: PlayJankenHandUseCaseInput
+    PackagesJankenPlayJankenHandV1PlayJankenHandUseCaseOutput:
+      title: PlayJankenHandUseCaseOutput
+      description: じゃんけん 1 手分のシステム入力、勝敗、次状態を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - user_hand
+      - system_hand
+      - result
+      - status
+      - message
+      properties:
+        session_id:
+          type: string
+          description: 対象のじゃんけんセッションを識別する値。
+        user_hand:
+          enum:
+          - グー
+          - チョキ
+          - パー
+          description: 判定に使用されたユーザーの手。
+        system_hand:
+          enum:
+          - グー
+          - チョキ
+          - パー
+          description: 判定に使用されたシステムの手。
+        result:
+          enum:
+          - ユーザーの勝ち
+          - ユーザーの負け
+          - あいこ
+          description: じゃんけん 1 手分の勝敗。
+        status:
+          enum:
+          - waiting_for_user_hand
+          - finished
+          description: あいこなら継続、勝敗確定なら終了を示す状態。
+        message:
+          type: string
+          description: CLI または HTTP で利用する利用者向けメッセージ。
+      x-usecaseapi:
+        kind: output
+        canonicalName: packages.janken.play_janken_hand.v1.PlayJankenHandUseCaseOutput
+        bindings:
+          python:
+            class: PlayJankenHandUseCaseOutput
+    PackagesJankenPlayJankenHandV1JankenSessionErrorPayload:
+      title: JankenSessionErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesJankenPlayJankenHandV1JankenSessionErrorEnvelope:
+      title: JankenSessionErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.janken.play_janken_hand.session_error
+        error:
+          type: string
+          enum:
+          - JankenSessionError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: JankenSessionError
+    PackagesJankenPlayJankenHandV1InvalidJankenHandErrorPayload:
+      title: InvalidJankenHandErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesJankenPlayJankenHandV1InvalidJankenHandErrorEnvelope:
+      title: InvalidJankenHandErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.janken.play_janken_hand.invalid_hand
+        error:
+          type: string
+          enum:
+          - InvalidJankenHandError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1InvalidJankenHandErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: InvalidJankenHandError
+    PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorPayload:
+      title: JankenSessionNotFoundErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorEnvelope:
+      title: JankenSessionNotFoundErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.janken.play_janken_hand.session_not_found
+        error:
+          type: string
+          enum:
+          - JankenSessionNotFoundError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: JankenSessionNotFoundError
+    PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorPayload:
+      title: JankenSessionAlreadyFinishedErrorPayload
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+    PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorEnvelope:
+      title: JankenSessionAlreadyFinishedErrorEnvelope
+      description: 'Base class for domain errors that are part of a usecase contract.
+
+
+        UseCaseAPI deliberately models domain failures as real Python exceptions.
+
+        This preserves normal exception hierarchy behavior, stack traces, ``except`` /
+
+        ``except*`` handling, and ExceptionGroup semantics.'
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - error
+      - message
+      - payload
+      properties:
+        code:
+          type: string
+          enum:
+          - packages.janken.play_janken_hand.session_already_finished
+        error:
+          type: string
+          enum:
+          - JankenSessionAlreadyFinishedError
+        message:
+          type: string
+        payload:
+          $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorPayload'
+      x-usecaseapi:
+        kind: errorEnvelope
+        error: JankenSessionAlreadyFinishedError
+    PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseInput:
+      title: StartJankenSessionUseCaseInput
+      description: じゃんけんセッション開始に必要な入力を表す。
+      type: object
+      additionalProperties: false
+      required: []
+      properties: {}
+      x-usecaseapi:
+        kind: input
+        canonicalName: packages.janken.start_janken_session.v1.StartJankenSessionUseCaseInput
+        bindings:
+          python:
+            class: StartJankenSessionUseCaseInput
+    PackagesJankenStartJankenSessionV1StartJankenSessionUseCaseOutput:
+      title: StartJankenSessionUseCaseOutput
+      description: 開始されたじゃんけんセッションの識別子と初期状態を表す。
+      type: object
+      additionalProperties: false
+      required:
+      - session_id
+      - status
+      - message
+      properties:
+        session_id:
+          type: string
+          description: アプリケーション実行中のメモリ上でセッションを識別する値。
+        status:
+          enum:
+          - waiting_for_user_hand
+          description: じゃんけんの手入力待ちであることを示す状態。
+        message:
+          type: string
+          description: CLI または HTTP で利用する利用者向けメッセージ。
+      x-usecaseapi:
+        kind: output
+        canonicalName: packages.janken.start_janken_session.v1.StartJankenSessionUseCaseOutput
+        bindings:
+          python:
+            class: StartJankenSessionUseCaseOutput
+  responses:
+    PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1DomainError:
+      description: Domain error raised by packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorEnvelope'
+    PackagesJankenPlayJankenHandV1DomainError:
+      description: Domain error raised by packages.janken.play_janken_hand.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1InvalidJankenHandErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorEnvelope'
+            - $ref: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorEnvelope'
+x-usecaseapi:
+  version: 3.1.0
+  profile: usecaseapi.openapi
+  manifestKind: usecaseapi.openapi.profile/3.1.0
+  defaults:
+    runtime: python
+    protocol: usecaseapi.inprocess.async_call.v1
+  runtimes:
+    python:
+      language: python
+      version: '>=3.12,<3.15'
+      roots:
+        contracts: src/packages
+        implementations: src
+        tests: tests
+      package: packages
+  protocols:
+    usecaseapi.inprocess.async_call.v1:
+      type: inprocess
+      interaction: requestReply
+      action: call
+      async: true
+      serialization: none
+      description: Same-process async request/reply usecase call.
+  components:
+    errors:
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionError:
+        name: AcchiMuiteHoiSessionError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_error
+        abstract: true
+        base: UseCaseError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionErrorEnvelope'
+        bindings:
+          python:
+            class: AcchiMuiteHoiSessionError
+        description: あっち向いてほいセッション操作で公開境界に出す基底エラー。
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandError:
+        name: InvalidAcchiMuiteHoiHandError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.invalid_hand
+        abstract: false
+        base: AcchiMuiteHoiSessionError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiHandErrorEnvelope'
+        bindings:
+          python:
+            class: InvalidAcchiMuiteHoiHandError
+        description: 受け付け対象外のじゃんけんの手が指定された場合のエラー。
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionError:
+        name: InvalidAcchiMuiteHoiDirectionError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.invalid_direction
+        abstract: false
+        base: AcchiMuiteHoiSessionError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1InvalidAcchiMuiteHoiDirectionErrorEnvelope'
+        bindings:
+          python:
+            class: InvalidAcchiMuiteHoiDirectionError
+        description: 受け付け対象外の方向が指定された場合のエラー。
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundError:
+        name: AcchiMuiteHoiSessionNotFoundError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_not_found
+        abstract: false
+        base: AcchiMuiteHoiSessionError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionNotFoundErrorEnvelope'
+        bindings:
+          python:
+            class: AcchiMuiteHoiSessionNotFoundError
+        description: 指定されたあっち向いてほいセッションが存在しない場合のエラー。
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedError:
+        name: AcchiMuiteHoiSessionAlreadyFinishedError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.session_already_finished
+        abstract: false
+        base: AcchiMuiteHoiSessionError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiSessionAlreadyFinishedErrorEnvelope'
+        bindings:
+          python:
+            class: AcchiMuiteHoiSessionAlreadyFinishedError
+        description: 終了済みのあっち向いてほいセッションに入力された場合のエラー。
+      PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchError:
+        name: AcchiMuiteHoiInputStateMismatchError
+        code: packages.acchi_muite_hoi.play_acchi_muite_hoi_turn.input_state_mismatch
+        abstract: false
+        base: AcchiMuiteHoiSessionError
+        payloadSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesAcchiMuiteHoiPlayAcchiMuiteHoiTurnV1AcchiMuiteHoiInputStateMismatchErrorEnvelope'
+        bindings:
+          python:
+            class: AcchiMuiteHoiInputStateMismatchError
+        description: 現在状態と入力内容が一致しない場合のエラー。
+      PackagesJankenPlayJankenHandV1JankenSessionError:
+        name: JankenSessionError
+        code: packages.janken.play_janken_hand.session_error
+        abstract: true
+        base: UseCaseError
+        payloadSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionErrorEnvelope'
+        bindings:
+          python:
+            class: JankenSessionError
+        description: じゃんけんセッション操作で公開境界に出す基底エラー。
+      PackagesJankenPlayJankenHandV1InvalidJankenHandError:
+        name: InvalidJankenHandError
+        code: packages.janken.play_janken_hand.invalid_hand
+        abstract: false
+        base: JankenSessionError
+        payloadSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1InvalidJankenHandErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1InvalidJankenHandErrorEnvelope'
+        bindings:
+          python:
+            class: InvalidJankenHandError
+        description: 受け付け対象外のじゃんけんの手が指定された場合のエラー。
+      PackagesJankenPlayJankenHandV1JankenSessionNotFoundError:
+        name: JankenSessionNotFoundError
+        code: packages.janken.play_janken_hand.session_not_found
+        abstract: false
+        base: JankenSessionError
+        payloadSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionNotFoundErrorEnvelope'
+        bindings:
+          python:
+            class: JankenSessionNotFoundError
+        description: 指定されたじゃんけんセッションが存在しない場合のエラー。
+      PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedError:
+        name: JankenSessionAlreadyFinishedError
+        code: packages.janken.play_janken_hand.session_already_finished
+        abstract: false
+        base: JankenSessionError
+        payloadSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorPayload'
+        envelopeSchema: '#/components/schemas/PackagesJankenPlayJankenHandV1JankenSessionAlreadyFinishedErrorEnvelope'
+        bindings:
+          python:
+            class: JankenSessionAlreadyFinishedError
+        description: 終了済みのじゃんけんセッションに入力された場合のエラー。
